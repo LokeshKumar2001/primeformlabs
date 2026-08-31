@@ -76,8 +76,8 @@
   },
   "auditLogs": [
     {
-      "id": "log-1788165774416-s36w",
-      "timestamp": "2026-08-31T08:42:54.416Z",
+      "id": "log-1788166140235-cwyn",
+      "timestamp": "2026-08-31T08:49:00.235Z",
       "type": "SYSTEM_RESET",
       "action": "HMI Guidance Reset",
       "details": "Operator reset all checks and workflow back to initial startup stage.",
@@ -85,12 +85,12 @@
     },
     {
       "id": "log-init",
-      "timestamp": "2026-08-31T08:42:54.416Z",
+      "timestamp": "2026-08-31T08:49:00.234Z",
       "type": "SYSTEM_POWER_ON",
       "action": "VMC System Initialized",
       "details": "Controller booted. Startup Guidance sequence initiated.",
       "operator": "OP-904 (J. Sharma)"
     }
   ],
-  "lastUpdated": "2026-08-31T08:42:54.416Z"
+  "lastUpdated": "2026-08-31T08:49:00.235Z"
 }

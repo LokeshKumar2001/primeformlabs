@@ -587,11 +587,62 @@
   color: #d97706;
 }
 
+/* ==========================================================================
+   Comprehensive Responsive Styles
+   ========================================================================== */
 @media (max-width: 1024px) {
   .tool-card {
     grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .tool-pocket-col {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 6px 12px;
   }
   .operation-dashboard-grid {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 768px) {
+  .checks-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .setup-step-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 14px 16px;
+  }
+  .tool-specs-matrix {
+    grid-template-columns: 1fr 1fr;
+  }
+  .gauge-value-display {
+    font-size: 20px;
+  }
+  .gcode-stream-panel {
+    max-height: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tool-specs-matrix {
+    grid-template-columns: 1fr;
+  }
+  .hmi-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  .gauge-card {
+    padding: 10px 6px;
+  }
+  .gauge-value-display {
+    font-size: 17px;
+  }
+  .gauge-unit {
+    font-size: 8px;
+  }
+}
+

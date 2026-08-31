@@ -1,4 +1,4 @@
-/* Clean White & Siemens Petrol Industrial Layout */
+/* Clean White & Siemens Petrol Industrial Layout - Fully Responsive */
 
 .hmi-app-root {
   min-height: 100vh;
@@ -14,6 +14,7 @@
   flex: 1;
   min-height: calc(100vh - 62px);
   overflow: hidden;
+  position: relative;
 }
 
 /* ==========================================================================
@@ -26,9 +27,10 @@
   max-width: 1560px;
   width: 100%;
   margin: 0 auto;
-  padding: 20px 24px 36px 24px;
-  gap: 20px;
+  padding: 18px 22px 32px 22px;
+  gap: 18px;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 
 /* Stepper Bar */
@@ -36,21 +38,21 @@
   background: #ffffff;
   border: 1.5px solid #cbd5e1;
   border-radius: 16px;
-  padding: 12px 16px;
+  padding: 10px 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .stepper-steps-wrapper {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
 
 .step-item-card {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
+  gap: 10px;
+  padding: 9px 12px;
   background: #ffffff;
   border: 1.5px solid #cbd5e1;
   border-radius: 12px;
@@ -83,13 +85,13 @@
 }
 
 .step-num-badge {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 800;
   background: #e2e8f0;
   color: #334155;
@@ -109,20 +111,25 @@
 .step-text-column {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
+  overflow: hidden;
 }
 
 .step-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   color: #0f172a;
   display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .step-status-sub {
-  font-size: 11px;
+  font-size: 10px;
   color: #64748b;
   display: block;
+  white-space: nowrap;
 }
 
 .step-item-card.active .step-status-sub {
@@ -150,19 +157,21 @@
 }
 
 .stage-viewport-header {
-  padding: 18px 24px;
+  padding: 16px 22px;
   background: #ffffff;
   border-bottom: 2.5px solid #00646e;
   color: #0f172a;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .stage-tag-badge {
   font-size: 11px;
   font-weight: 700;
-  padding: 4px 10px;
+  padding: 3px 9px;
   background: #e6f7f8;
   color: #00646e;
   border: 1px solid #bcecef;
@@ -171,44 +180,88 @@
 }
 
 .stage-main-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
   color: #0f172a;
 }
 
 .stage-instruction-sub {
-  font-size: 13px;
+  font-size: 12px;
   color: #64748b;
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 .stage-viewport-body {
   flex: 1;
-  padding: 24px;
+  padding: 20px;
   background: #f8fafc;
   overflow-y: auto;
 }
 
 .stage-viewport-footer {
-  padding: 16px 24px;
+  padding: 14px 22px;
   background: #ffffff;
   border-top: 1.5px solid #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-@media (max-width: 1200px) {
-  .stepper-steps-wrapper {
-    grid-template-columns: repeat(3, 1fr);
+/* ==========================================================================
+   Sidebar Dock Responsive Styles
+   ========================================================================== */
+.sidebar-nav-dock.expanded {
+  width: 200px;
+  min-width: 200px;
+}
+
+.sidebar-nav-dock.collapsed {
+  width: 64px;
+  min-width: 64px;
+}
+
+@media (max-width: 1024px) {
+  .sidebar-nav-dock.expanded {
+    width: 64px;
+    min-width: 64px;
+  }
+  .sidebar-collapse-btn {
+    display: none !important;
   }
 }
 
 @media (max-width: 768px) {
-  .stepper-steps-wrapper {
-    grid-template-columns: 1fr;
+  .sidebar-nav-dock {
+    width: 100% !important;
+    min-width: 100% !important;
+    border-right: none;
+    border-bottom: 1.5px solid #cbd5e1;
+    padding: 8px 12px;
   }
-  .hmi-main-content {
-    padding: 12px;
+  .sidebar-nav-dock .sidebar-nav-items-wrapper {
+    flex-direction: row !important;
+    overflow-x: auto;
+  }
+  .sidebar-nav-dock .sidebar-nav-items-wrapper button {
+    flex: 1;
+    min-width: 44px;
+    height: 38px !important;
+    padding: 0 !important;
+    justify-content: center !important;
+  }
+  .sidebar-bottom-actions {
+    display: none !important;
+  }
+  .header-job-bar {
+    display: none !important;
+  }
+  .header-btn-text {
+    display: none !important;
+  }
+  .header-clock-box {
+    display: none !important;
   }
 }
+

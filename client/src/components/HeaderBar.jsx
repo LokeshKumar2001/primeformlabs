@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { 
+  FileText, 
+  RotateCcw, 
+  AlertOctagon, 
   Volume2, 
   VolumeX, 
-  FileText, 
-  History, 
-  AlertOctagon, 
-  RotateCcw,
-  Cpu,
-  Clock,
+  Cpu, 
+  Clock, 
+  CheckCircle,
+  Menu,
+  X,
   User,
   ArrowRightLeft
 } from 'lucide-react';
@@ -17,8 +19,9 @@ import { useHmiStore } from '../store/useHmiStore';
 export function HeaderBar() {
   const { 
     scenario, 
-    operator,
+    machineState, 
     audioMuted, 
+    operator,
     toggleAudio, 
     setShowSpecsModal, 
     setShowAuditModal, 
@@ -27,157 +30,159 @@ export function HeaderBar() {
     emergencyStop 
   } = useHmiStore();
 
-  const [time, setTime] = useState(new Date().toLocaleTimeString());
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTime(new Date().toLocaleTimeString());
+      setCurrentTime(new Date().toLocaleTimeString([], { hour12: false }));
     }, 1000);
     return () => clearInterval(timer);
   }, []);
 
   const handleReset = () => {
-    soundFx.playClick();
-    if (window.confirm("CONFIRM RESTART: Reset all startup guidance and return to Stage 1 (Machine Checks)?")) {
+    if (window.confirm("CONFIRM RESTART: Reset all 5 startup guidance stages back to Stage 1?")) {
+      soundFx.playStopAlarm();
       resetSystem();
     }
   };
 
+  const handleEStop = () => {
+    emergencyStop();
+  };
+
   return (
     <header style={{
-      height: '62px',
+      minHeight: '62px',
       backgroundColor: '#00646e',
       backgroundImage: 'linear-gradient(180deg, #007682 0%, #005a63 100%)',
-      borderBottom: '2.5px solid #00454c',
-      boxShadow: '0 2px 10px rgba(0, 100, 110, 0.2)',
+      borderBottom: '3px solid #00454c',
+      padding: '0 16px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '0 20px',
+      gap: '12px',
+      color: '#ffffff',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
       position: 'sticky',
       top: 0,
       zIndex: 100,
-      color: '#ffffff',
-      fontFamily: "Arial, 'Helvetica Neue', Helvetica, sans-serif",
-      boxSizing: 'border-box'
+      flexWrap: 'wrap'
     }}>
       {/* Left: Brand Identity */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '10px',
+          gap: '8px',
           backgroundColor: 'rgba(255, 255, 255, 0.15)',
-          padding: '6px 14px',
+          padding: '6px 12px',
           borderRadius: '10px',
           border: '1px solid rgba(255, 255, 255, 0.3)'
         }}>
-          <Cpu size={20} color="#00cad5" />
-          <span style={{ fontSize: '15px', fontWeight: 800, letterSpacing: '1px', color: '#ffffff' }}>
+          <Cpu size={18} color="#00cad5" />
+          <span style={{ fontSize: '14px', fontWeight: 800, letterSpacing: '1px', color: '#ffffff' }}>
             PRIMEFORM
           </span>
           <span style={{
             fontFamily: "'Consolas', monospace",
-            fontSize: '11px',
+            fontSize: '10px',
             fontWeight: 700,
             color: '#00646e',
             backgroundColor: '#ffffff',
-            padding: '2px 8px',
-            borderRadius: '12px',
+            padding: '2px 6px',
+            borderRadius: '10px',
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
           }}>
-            VMC-850 PRO
+            VMC-850
           </span>
         </div>
       </div>
 
-      {/* Center: Clean White Segmented Job Info Bar */}
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          backgroundColor: 'rgba(255, 255, 255, 0.18)',
-          borderRadius: '30px',
-          border: '1.5px solid rgba(255, 255, 255, 0.35)',
-          padding: '4px 18px',
-          gap: '14px',
-          backdropFilter: 'blur(4px)'
-        }}>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            <span style={{ fontSize: '9px', fontWeight: 800, color: '#e6f7f8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              Active Part
-            </span>
-            <span style={{ fontSize: '12px', fontWeight: 800, color: '#ffffff' }}>
-              {scenario?.workOrder?.partNumber || "AERO-FLG-7042"}
-            </span>
-          </div>
+      {/* Center: Clean Segmented Job Info Bar */}
+      <div className="header-job-bar" style={{
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.18)',
+        borderRadius: '30px',
+        border: '1.5px solid rgba(255, 255, 255, 0.35)',
+        padding: '3px 14px',
+        gap: '12px',
+        backdropFilter: 'blur(4px)'
+      }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <span style={{ fontSize: '8px', fontWeight: 800, color: '#e6f7f8', textTransform: 'uppercase' }}>
+            Part
+          </span>
+          <span style={{ fontSize: '11px', fontWeight: 800, color: '#ffffff' }}>
+            {scenario?.workOrder?.partNumber || "AERO-FLG-7042"}
+          </span>
+        </div>
 
-          <div style={{ width: '1px', height: '20px', backgroundColor: 'rgba(255, 255, 255, 0.35)' }} />
+        <div style={{ width: '1px', height: '18px', backgroundColor: 'rgba(255, 255, 255, 0.35)' }} />
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            <span style={{ fontSize: '9px', fontWeight: 800, color: '#e6f7f8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              Operation
-            </span>
-            <span style={{ fontSize: '12px', fontWeight: 800, color: '#ffffff' }}>
-              {scenario?.operation?.opNumber || "OP-10"}
-            </span>
-          </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <span style={{ fontSize: '8px', fontWeight: 800, color: '#e6f7f8', textTransform: 'uppercase' }}>
+            Op
+          </span>
+          <span style={{ fontSize: '11px', fontWeight: 800, color: '#ffffff' }}>
+            {scenario?.operation?.opNumber || "OP-10"}
+          </span>
+        </div>
 
-          <div style={{ width: '1px', height: '20px', backgroundColor: 'rgba(255, 255, 255, 0.35)' }} />
+        <div style={{ width: '1px', height: '18px', backgroundColor: 'rgba(255, 255, 255, 0.35)' }} />
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            <span style={{ fontSize: '9px', fontWeight: 800, color: '#e6f7f8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              CNC Program
-            </span>
-            <span style={{ fontSize: '12px', fontWeight: 800, color: '#ffffff' }}>
-              {scenario?.operation?.cncProgram?.programNumber || "O8842"}
-            </span>
-          </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <span style={{ fontSize: '8px', fontWeight: 800, color: '#e6f7f8', textTransform: 'uppercase' }}>
+            Program
+          </span>
+          <span style={{ fontSize: '11px', fontWeight: 800, color: '#ffffff' }}>
+            {scenario?.operation?.cncProgram?.programNumber || "O8842"}
+          </span>
+        </div>
 
-          <div style={{ width: '1px', height: '20px', backgroundColor: 'rgba(255, 255, 255, 0.35)' }} />
+        <div style={{ width: '1px', height: '18px', backgroundColor: 'rgba(255, 255, 255, 0.35)' }} />
 
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            <span style={{ fontSize: '9px', fontWeight: 800, color: '#e6f7f8', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-              Batch
-            </span>
-            <span style={{ fontSize: '12px', fontWeight: 800, color: '#bbf7d0' }}>
-              {scenario?.workOrder?.quantity || 50} PCS
-            </span>
-          </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <span style={{ fontSize: '8px', fontWeight: 800, color: '#e6f7f8', textTransform: 'uppercase' }}>
+            Batch
+          </span>
+          <span style={{ fontSize: '11px', fontWeight: 800, color: '#bbf7d0' }}>
+            {scenario?.workOrder?.quantity || 50} PCS
+          </span>
         </div>
       </div>
 
       {/* Right: Operator Profile & Action Buttons */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
         {/* Operator Profile Pill */}
         <button
           type="button"
           onClick={() => { soundFx.playClick(); setShowProfileModal(true); }}
           title="Operator Profile, Shift Hours & Handover Sign-Off"
           style={{
-            height: '36px',
-            padding: '0 12px',
-            borderRadius: '18px',
+            height: '34px',
+            padding: '0 10px',
+            borderRadius: '17px',
             backgroundColor: '#ffffff',
             border: '1.5px solid #cbd5e1',
             color: '#0f172a',
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
+            gap: '6px',
             cursor: 'pointer',
             boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
           }}
         >
           <div style={{
-            width: '24px',
-            height: '24px',
+            width: '22px',
+            height: '22px',
             borderRadius: '50%',
             backgroundColor: '#00646e',
             color: '#ffffff',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontSize: '11px',
+            fontSize: '10px',
             fontWeight: 900
           }}>
             {(operator?.name || 'JS').split(' ').map(n => n[0]).join('')}
@@ -186,11 +191,11 @@ export function HeaderBar() {
             <span style={{ fontSize: '11px', fontWeight: 800, color: '#0f172a', lineHeight: 1 }}>
               {operator?.name || 'Operator'}
             </span>
-            <span style={{ fontSize: '9px', color: '#00646e', fontWeight: 700, marginTop: '2px', lineHeight: 1 }}>
-              {(operator?.shiftName || 'Shift A').split(' ')[0]} ({operator?.shiftHoursElapsed || '00h 00m'})
+            <span style={{ fontSize: '8px', color: '#00646e', fontWeight: 700, marginTop: '2px', lineHeight: 1 }}>
+              {(operator?.shiftName || 'Shift A').split(' ')[0]}
             </span>
           </div>
-          <ArrowRightLeft size={13} color="#00646e" style={{ marginLeft: '2px' }} />
+          <ArrowRightLeft size={12} color="#00646e" />
         </button>
 
         {/* Audio Toggle */}
@@ -212,21 +217,21 @@ export function HeaderBar() {
             boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
           }}
         >
-          {audioMuted ? <VolumeX size={15} color="#64748b" /> : <Volume2 size={15} color="#00646e" />}
+          {audioMuted ? <VolumeX size={14} color="#64748b" /> : <Volume2 size={14} color="#00646e" />}
         </button>
 
         {/* Job Specs */}
         <button 
           type="button"
           onClick={() => { soundFx.playClick(); setShowSpecsModal(true); }}
-          title="View Job Sheet & CNC Specifications"
+          title="Inspect Complete Drawing & Fixture Specifications"
           style={{
             height: '34px',
             padding: '0 10px',
             borderRadius: '8px',
             backgroundColor: '#ffffff',
             border: '1px solid #cbd5e1',
-            color: '#0f172a',
+            color: '#1e293b',
             display: 'flex',
             alignItems: 'center',
             gap: '5px',
@@ -236,22 +241,22 @@ export function HeaderBar() {
             boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
           }}
         >
-          <FileText size={14} color="#0284c7" />
-          <span>Specs</span>
+          <FileText size={14} color="#00646e" />
+          <span className="header-btn-text">Specs</span>
         </button>
 
         {/* Audit Log */}
         <button 
           type="button"
           onClick={() => { soundFx.playClick(); setShowAuditModal(true); }}
-          title="View Operator Action Audit Trail"
+          title="View ISO Audit Trail & Check History"
           style={{
             height: '34px',
             padding: '0 10px',
             borderRadius: '8px',
             backgroundColor: '#ffffff',
             border: '1px solid #cbd5e1',
-            color: '#0f172a',
+            color: '#1e293b',
             display: 'flex',
             alignItems: 'center',
             gap: '5px',
@@ -261,22 +266,22 @@ export function HeaderBar() {
             boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
           }}
         >
-          <History size={14} color="#7c3aed" />
-          <span>Audit</span>
+          <CheckCircle size={14} color="#16a34a" />
+          <span className="header-btn-text">Audit</span>
         </button>
 
-        {/* Reset */}
+        {/* Reset System */}
         <button 
           type="button"
           onClick={handleReset}
-          title="Reset Machine Guidance Workflow"
+          title="Reset All Startup Guidance Stages to Stage 1"
           style={{
             height: '34px',
             padding: '0 10px',
             borderRadius: '8px',
             backgroundColor: '#ffffff',
             border: '1px solid #cbd5e1',
-            color: '#0f172a',
+            color: '#1e293b',
             display: 'flex',
             alignItems: 'center',
             gap: '5px',
@@ -286,21 +291,21 @@ export function HeaderBar() {
             boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
           }}
         >
-          <RotateCcw size={14} color="#d97706" />
-          <span>Reset</span>
+          <RotateCcw size={14} color="#475569" />
+          <span className="header-btn-text">Reset</span>
         </button>
 
-        {/* E-STOP Button */}
+        {/* Emergency Stop */}
         <button 
           type="button"
-          onClick={emergencyStop}
-          title="Emergency Stop / Interlock Brake"
+          onClick={handleEStop}
+          title="EMERGENCY STOP: Immediate Spindle & Axis Interlock Halt"
           style={{
             height: '34px',
             padding: '0 12px',
             borderRadius: '8px',
             backgroundColor: '#dc2626',
-            backgroundImage: 'linear-gradient(180deg, #ef4444 0%, #dc2626 100%)',
+            backgroundImage: 'linear-gradient(180deg, #ef4444 0%, #b91c1c 100%)',
             border: '1px solid #991b1b',
             color: '#ffffff',
             display: 'flex',
@@ -309,30 +314,29 @@ export function HeaderBar() {
             fontSize: '11px',
             fontWeight: 800,
             cursor: 'pointer',
-            boxShadow: '0 2px 5px rgba(220, 38, 38, 0.35)'
+            boxShadow: '0 2px 6px rgba(220, 38, 38, 0.35)'
           }}
         >
-          <AlertOctagon size={15} />
+          <AlertOctagon size={14} color="#ffffff" />
           <span>E-STOP</span>
         </button>
 
-        {/* Digital Time Badge */}
-        <div style={{
-          height: '34px',
-          padding: '0 10px',
-          borderRadius: '8px',
-          backgroundColor: 'rgba(255, 255, 255, 0.18)',
-          border: '1px solid rgba(255, 255, 255, 0.35)',
-          color: '#ffffff',
-          fontFamily: "'Consolas', monospace",
-          fontSize: '11px',
-          fontWeight: 700,
+        {/* Clock */}
+        <div className="header-clock-box" style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '5px'
+          gap: '5px',
+          fontFamily: "'Consolas', monospace",
+          fontSize: '12px',
+          fontWeight: 800,
+          color: '#00cad5',
+          backgroundColor: '#00383e',
+          padding: '6px 10px',
+          borderRadius: '8px',
+          border: '1px solid #005a63'
         }}>
-          <Clock size={13} color="#00cad5" />
-          <span>{time}</span>
+          <Clock size={12} />
+          <span>{currentTime}</span>
         </div>
       </div>
     </header>
