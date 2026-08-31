@@ -1,0 +1,597 @@
+/* Siemens Sinumerik Clean White Theme Components & Softkeys */
+
+/* Softkey Action Buttons */
+.hmi-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.15s ease;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.hmi-btn:active {
+  transform: translateY(1px);
+}
+
+.hmi-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Primary Siemens Petrol Softkey */
+.hmi-btn-primary {
+  background: linear-gradient(180deg, #007682 0%, #005a63 100%);
+  color: #ffffff;
+  border-color: #00454c;
+  box-shadow: 0 3px 6px rgba(0, 100, 110, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.hmi-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, #008795 0%, #006b75 100%);
+  box-shadow: 0 4px 10px rgba(0, 100, 110, 0.35);
+}
+
+/* Success Green Softkey (Cycle Start / Ready) */
+.hmi-btn-success {
+  background: linear-gradient(180deg, #16a34a 0%, #15803d 100%);
+  color: #ffffff;
+  border-color: #166534;
+  box-shadow: 0 3px 6px rgba(22, 163, 74, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.hmi-btn-success:hover:not(:disabled) {
+  background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.35);
+}
+
+/* Danger Red Softkey (Stop / E-Stop) */
+.hmi-btn-danger {
+  background: linear-gradient(180deg, #dc2626 0%, #b91c1c 100%);
+  color: #ffffff;
+  border-color: #991b1b;
+  box-shadow: 0 3px 6px rgba(220, 38, 38, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+.hmi-btn-danger:hover:not(:disabled) {
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.35);
+}
+
+/* Secondary Steel Softkey */
+.hmi-btn-secondary {
+  background: #ffffff;
+  color: #1e293b;
+  border-color: #cbd5e1;
+}
+.hmi-btn-secondary:hover:not(:disabled) {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.hmi-btn-lg {
+  padding: 12px 28px;
+  font-size: 14px;
+  border-radius: 12px;
+}
+
+/* LED Indicators */
+.led-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #94a3b8;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.led-green {
+  background: #16a34a;
+  box-shadow: 0 0 6px rgba(22, 163, 74, 0.6);
+}
+.led-green.pulse {
+  animation: ledPulseGreen 1.2s infinite;
+}
+
+.led-amber {
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+}
+.led-amber.pulse {
+  animation: ledPulseAmber 1s infinite;
+}
+
+.led-red {
+  background: #dc2626;
+  box-shadow: 0 0 6px rgba(220, 38, 38, 0.6);
+}
+.led-red.pulse {
+  animation: ledPulseRed 0.9s infinite;
+}
+
+.led-cyan {
+  background: #00cad5;
+  box-shadow: 0 0 6px rgba(0, 202, 213, 0.6);
+}
+
+@keyframes ledPulseGreen {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.9); }
+}
+@keyframes ledPulseAmber {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.9); }
+}
+@keyframes ledPulseRed {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.95); }
+}
+
+/* ==========================================================================
+   Stage 1: Machine Checks Distinct Rounded White Cards
+   ========================================================================== */
+.checks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.check-item-card {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.check-item-card:hover {
+  border-color: #00646e;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.check-item-card.confirmed {
+  border-color: #86efac;
+  background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.08);
+}
+
+.check-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #e6f7f8;
+  border: 1px solid #bcecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #00646e;
+  flex-shrink: 0;
+}
+
+.check-item-card.confirmed .check-icon-box {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #16a34a;
+}
+
+.check-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.check-category {
+  font-size: 10px;
+  font-weight: 700;
+  color: #005a63;
+  background: #e6f7f8;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  border: 1px solid #bcecef;
+}
+
+.check-desc {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.45;
+}
+
+.check-telemetry-badge {
+  font-family: 'Consolas', monospace;
+  font-size: 12px;
+  padding: 8px 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #334155;
+}
+
+.check-item-card.confirmed .check-telemetry-badge {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #15803d;
+}
+
+/* ==========================================================================
+   Stage 2: Required Tools Rounded White Cards
+   ========================================================================== */
+.tools-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tool-card {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 16px;
+  padding: 18px 22px;
+  display: grid;
+  grid-template-columns: 75px 1.4fr 1.6fr 180px;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.tool-card:hover {
+  border-color: #00646e;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.tool-card.confirmed {
+  border-color: #86efac;
+  background: linear-gradient(90deg, #f0fdf4 0%, #ffffff 100%);
+}
+
+.tool-pocket-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #e6f7f8;
+  color: #00646e;
+  border: 1.5px solid #bcecef;
+  border-radius: 10px;
+  padding: 8px 6px;
+  text-align: center;
+}
+
+.tool-code {
+  font-size: 19px;
+  font-weight: 900;
+  color: #00646e;
+}
+
+.tool-card.confirmed .tool-code {
+  color: #16a34a;
+}
+
+.tool-pocket-label {
+  font-family: 'Consolas', monospace;
+  font-size: 10px;
+  color: #475569;
+  font-weight: 700;
+}
+
+.tool-name-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.tool-purpose-text {
+  font-size: 12px;
+  color: #475569;
+}
+
+.tool-rev-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Consolas', monospace;
+  font-size: 10px;
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid #fcd34d;
+  padding: 2px 8px;
+  border-radius: 9999px;
+}
+
+.tool-specs-matrix {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.spec-cell-label {
+  font-size: 10px;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.spec-cell-val {
+  font-family: 'Consolas', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   Stage 3: Workpiece Step Rounded White Cards
+   ========================================================================== */
+.setup-step-card {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 16px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+  margin-bottom: 12px;
+}
+
+.setup-step-card:hover {
+  border-color: #00646e;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.setup-step-card.confirmed {
+  border-color: #86efac;
+  background: linear-gradient(90deg, #f0fdf4 0%, #ffffff 100%);
+}
+
+.step-circle-number {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #e6f7f8;
+  color: #00646e;
+  border: 1.5px solid #bcecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+.setup-step-card.confirmed .step-circle-number {
+  background: #16a34a;
+  border-color: #86efac;
+  color: #ffffff;
+}
+
+.setup-step-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.setup-step-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  background: #e6f7f8;
+  color: #005a63;
+  border: 1px solid #bcecef;
+  border-radius: 9999px;
+}
+
+.setup-step-desc {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.45;
+}
+
+.setup-step-criterion {
+  font-family: 'Consolas', monospace;
+  font-size: 12px;
+  color: #92400e;
+  background: #fef3c7;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #fcd34d;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+}
+
+/* ==========================================================================
+   Stage 4: Ready Review Board
+   ========================================================================== */
+.ready-review-board {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ready-master-banner {
+  padding: 24px 30px;
+  border-radius: 18px;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.ready-section-box {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* ==========================================================================
+   Stage 5: Live CNC Operation Dashboard
+   ========================================================================== */
+.operation-dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 20px;
+}
+
+.canvas-panel-container {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.canvas-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #0f172a;
+}
+
+.canvas-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #00646e;
+  letter-spacing: 0.5px;
+}
+
+.canvas-stage-badge {
+  font-family: 'Consolas', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  color: #334155;
+}
+
+.milling-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #0f172a;
+  border: 1.5px solid #334155;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.gauge-card {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.gauge-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.gauge-value-display {
+  font-family: 'Consolas', monospace;
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 3px 0;
+}
+
+.gauge-unit {
+  font-family: 'Consolas', monospace;
+  font-size: 10px;
+  color: #00646e;
+  font-weight: 700;
+}
+
+.gcode-stream-panel {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  max-height: 220px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.status-callout-capsule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.status-callout-text {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.status-READY {
+  color: #00828a;
+}
+.status-RUNNING {
+  color: #16a34a;
+}
+.status-STOPPED {
+  color: #dc2626;
+}
+.status-COMPLETED {
+  color: #d97706;
+}
+
+@media (max-width: 1024px) {
+  .tool-card {
+    grid-template-columns: 1fr;
+  }
+  .operation-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}

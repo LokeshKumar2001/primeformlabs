@@ -1,0 +1,90 @@
+:root {
+  /* Siemens Sinumerik Color Palette */
+  --siemens-petrol: #00646e;
+  --siemens-petrol-dark: #004850;
+  --siemens-petrol-light: #00828a;
+  --siemens-cyan: #00a2ac;
+  --siemens-cyan-bright: #00cad5;
+  --siemens-steel: #dce1e8;
+  --siemens-steel-dark: #2c3848;
+  --siemens-panel-bg: #f1f5f9;
+  --siemens-card-bg: #ffffff;
+  --siemens-bezel: #1b2430;
+  --siemens-border: #cbd5e1;
+  --siemens-border-light: #e2e8f0;
+  --siemens-softkey: #2b4159;
+  --siemens-softkey-hover: #395675;
+  --siemens-softkey-active: #00828a;
+
+  /* Typography */
+  --font-sans: Arial, 'Helvetica Neue', Helvetica, 'Segoe UI', sans-serif;
+  --font-ui: Arial, 'Helvetica Neue', Helvetica, 'Segoe UI', sans-serif;
+  --font-mono: 'Consolas', 'Courier New', monospace;
+
+  /* Status Colors */
+  --color-green: #16a34a;
+  --color-green-light: #22c55e;
+  --color-green-bg: #dcfce7;
+  --color-green-border: #86efac;
+
+  --color-amber: #d97706;
+  --color-amber-light: #f59e0b;
+  --color-amber-bg: #fef3c7;
+  --color-amber-border: #fcd34d;
+
+  --color-red: #dc2626;
+  --color-red-light: #ef4444;
+  --color-red-bg: #fee2e2;
+  --color-red-border: #fca5a5;
+
+  /* Text Colors */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-light: #f8fafc;
+
+  /* Generous Rounded Geometry */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Elevated Shadows */
+  --shadow-card: 0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 10px 20px -3px rgba(0, 0, 0, 0.12), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-softkey: 0 2px 5px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--siemens-panel-bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Industrial Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

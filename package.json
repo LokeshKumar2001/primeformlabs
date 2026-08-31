@@ -1,0 +1,20 @@
+{
+  "name": "vmc-operator-hmi",
+  "version": "1.0.0",
+  "description": "VMC Operator HMI - Startup Guidance Full-Stack Web Application for Primeform Labs",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "node server/server.js",
+    "client": "npm --prefix client run dev",
+    "dev": "node server/server.js",
+    "build": "npm --prefix client run build"
+  },
+  "keywords": ["cnc", "vmc", "hmi", "machining", "primeform"],
+  "author": "Primeform Candidate",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

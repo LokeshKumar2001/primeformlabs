@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-[#070a10] text-[#f1f5f9] font-ui antialiased overflow-x-hidden select-none;
+  }
+}
+
+/* Custom Tactical Glass & LED Effects */
+@layer components {
+  .hmi-btn-touch {
+    @apply inline-flex items-center justify-center gap-2.5 font-ui text-sm font-bold uppercase tracking-wider px-6 py-3 rounded-md transition-all duration-150 active:translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:transform-none;
+  }
+}
