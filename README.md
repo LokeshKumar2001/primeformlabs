@@ -29,7 +29,19 @@
 
 ---
 
-## 📋 Preloaded Mock Scenario Specifications
+## 🔑 Demo Login Credentials for Reviewers
+
+When opening the live application, the **Operator Login Screen** is presented:
+
+| Operator Badge ID | Operator Name | Role & Shift | PIN / Password |
+| :--- | :--- | :--- | :--- |
+| **`OP-904`** | **J. Sharma** | Lead CNC Precision Machinist *(Shift A)* | **`1234`** *(or 1-Click Demo Login)* |
+| **`OP-712`** | **R. Patel** | Senior Setup Machinist *(Shift B)* | **`1234`** *(or 1-Click Demo Login)* |
+| **`OP-602`** | **A. Kumar** | Tooling & Fixture Specialist *(Shift C)* | **`1234`** *(or 1-Click Demo Login)* |
+
+---
+
+## 📋 Preloaded Machine Scenario (AERO-FLG-7042 / OP-10)
 
 | Parameter | Specification | Details |
 | :--- | :--- | :--- |
