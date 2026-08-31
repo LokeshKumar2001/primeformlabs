@@ -47,7 +47,7 @@ export const useHmiStore = create((set, get) => ({
   showSpecsModal: false,
   showAuditModal: false,
   showProfileModal: false,
-  isLoggedIn: true, // Default logged in as OP-904, can switch or log out anytime
+  isLoggedIn: false, // Present Login Screen on initial load
   audioMuted: soundFx.isMuted(),
 
   // Operator & Shift Data
