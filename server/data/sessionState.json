@@ -5,7 +5,7 @@
       "index": 1,
       "key": "machine_checks",
       "name": "Machine Checks",
-      "isComplete": false
+      "isComplete": true
     },
     {
       "index": 2,
@@ -33,9 +33,9 @@
     }
   ],
   "machineChecks": {
-    "chk-power": false,
-    "chk-estop": false,
-    "chk-door": false,
+    "chk-power": true,
+    "chk-estop": true,
+    "chk-door": true,
     "chk-alarms": true,
     "chk-lube-coolant": true,
     "chk-homing": true
@@ -75,6 +75,14 @@
     "stopReason": null
   },
   "auditLogs": [
+    {
+      "id": "log-1788163375648-fgbz",
+      "timestamp": "2026-08-31T08:02:55.649Z",
+      "type": "MACHINE_CHECK",
+      "action": "All Machine Pre-Checks Confirmed",
+      "details": "Operator performed rapid batch verification of all 6 safety and system checks.",
+      "operator": "OP-904 (J. Sharma)"
+    },
     {
       "id": "log-1788162548067-dpw5",
       "timestamp": "2026-08-31T07:49:08.067Z",
@@ -124,5 +132,5 @@
       "operator": "OP-904 (J. Sharma)"
     }
   ],
-  "lastUpdated": "2026-08-31T07:49:08.067Z"
+  "lastUpdated": "2026-08-31T08:02:55.649Z"
 }
