@@ -5,7 +5,7 @@
       "index": 1,
       "key": "machine_checks",
       "name": "Machine Checks",
-      "isComplete": true
+      "isComplete": false
     },
     {
       "index": 2,
@@ -33,12 +33,12 @@
     }
   ],
   "machineChecks": {
-    "chk-power": true,
-    "chk-estop": true,
-    "chk-door": true,
-    "chk-alarms": true,
-    "chk-lube-coolant": true,
-    "chk-homing": true
+    "chk-power": false,
+    "chk-estop": false,
+    "chk-door": false,
+    "chk-alarms": false,
+    "chk-lube-coolant": false,
+    "chk-homing": false
   },
   "tools": {
     "tool-t01": false,
@@ -76,48 +76,8 @@
   },
   "auditLogs": [
     {
-      "id": "log-1788163375648-fgbz",
-      "timestamp": "2026-08-31T08:02:55.649Z",
-      "type": "MACHINE_CHECK",
-      "action": "All Machine Pre-Checks Confirmed",
-      "details": "Operator performed rapid batch verification of all 6 safety and system checks.",
-      "operator": "OP-904 (J. Sharma)"
-    },
-    {
-      "id": "log-1788162548067-dpw5",
-      "timestamp": "2026-08-31T07:49:08.067Z",
-      "type": "MACHINE_CHECK",
-      "action": "Check Confirmed: Power & Control Available",
-      "details": "Operator validated condition: UNCHECKED",
-      "operator": "OP-904 (J. Sharma)"
-    },
-    {
-      "id": "log-1788162547205-zef4",
-      "timestamp": "2026-08-31T07:49:07.205Z",
-      "type": "MACHINE_CHECK",
-      "action": "Check Confirmed: Emergency Stop Released",
-      "details": "Operator validated condition: UNCHECKED",
-      "operator": "OP-904 (J. Sharma)"
-    },
-    {
-      "id": "log-1788162545083-bcu4",
-      "timestamp": "2026-08-31T07:49:05.083Z",
-      "type": "MACHINE_CHECK",
-      "action": "Check Confirmed: Guard / Door Closed & Interlocked",
-      "details": "Operator validated condition: UNCHECKED",
-      "operator": "OP-904 (J. Sharma)"
-    },
-    {
-      "id": "log-1788162533343-gy8r",
-      "timestamp": "2026-08-31T07:48:53.344Z",
-      "type": "MACHINE_CHECK",
-      "action": "All Machine Pre-Checks Confirmed",
-      "details": "Operator performed rapid batch verification of all 6 safety and system checks.",
-      "operator": "OP-904 (J. Sharma)"
-    },
-    {
-      "id": "log-1788162415968-kl94",
-      "timestamp": "2026-08-31T07:46:55.968Z",
+      "id": "log-1788164099102-7280",
+      "timestamp": "2026-08-31T08:14:59.102Z",
       "type": "SYSTEM_RESET",
       "action": "HMI Guidance Reset",
       "details": "Operator reset all checks and workflow back to initial startup stage.",
@@ -125,12 +85,12 @@
     },
     {
       "id": "log-init",
-      "timestamp": "2026-08-31T07:46:55.968Z",
+      "timestamp": "2026-08-31T08:14:59.102Z",
       "type": "SYSTEM_POWER_ON",
       "action": "VMC System Initialized",
       "details": "Controller booted. Startup Guidance sequence initiated.",
       "operator": "OP-904 (J. Sharma)"
     }
   ],
-  "lastUpdated": "2026-08-31T08:02:55.649Z"
+  "lastUpdated": "2026-08-31T08:14:59.102Z"
 }

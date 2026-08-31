@@ -6,6 +6,39 @@ import { create } from 'zustand';
 import * as api from '../services/api';
 import { soundFx } from '../audio/soundEffects';
 
+export const DEMO_OPERATORS = [
+  {
+    id: "OP-904",
+    name: "J. Sharma",
+    pin: "1234",
+    role: "Lead CNC Precision Machinist",
+    qualification: "Level 4 VMC Specialist (Fanuc/Siemens Certified)",
+    shiftName: "Shift A (Morning 06:00 - 14:00)",
+    shiftHoursElapsed: "06h 48m",
+    shiftEfficiency: "94.2%"
+  },
+  {
+    id: "OP-712",
+    name: "R. Patel",
+    pin: "1234",
+    role: "Senior Setup Machinist",
+    qualification: "Level 3 CNC Milling Specialist",
+    shiftName: "Shift B (Afternoon 14:00 - 22:00)",
+    shiftHoursElapsed: "01h 15m",
+    shiftEfficiency: "91.8%"
+  },
+  {
+    id: "OP-602",
+    name: "A. Kumar",
+    pin: "1234",
+    role: "Tooling & Fixture Specialist",
+    qualification: "Level 3 Toolmaker Certified",
+    shiftName: "Shift C (Night 22:00 - 06:00)",
+    shiftHoursElapsed: "07h 50m",
+    shiftEfficiency: "95.0%"
+  }
+];
+
 export const useHmiStore = create((set, get) => ({
   scenario: null,
   machineState: null,
@@ -14,31 +47,20 @@ export const useHmiStore = create((set, get) => ({
   showSpecsModal: false,
   showAuditModal: false,
   showProfileModal: false,
+  isLoggedIn: true, // Default logged in as OP-904, can switch or log out anytime
   audioMuted: soundFx.isMuted(),
 
   // Operator & Shift Data
-  operator: {
-    name: "J. Sharma",
-    id: "OP-904",
-    role: "Lead CNC Precision Machinist",
-    qualification: "Level 4 VMC Specialist (Fanuc/Siemens Certified)",
-    shiftName: "Shift A (Morning)",
-    shiftStart: "06:00",
-    shiftEnd: "14:00",
-    shiftHoursTotal: 8,
-    shiftHoursElapsed: "06h 48m",
-    partsProducedThisShift: 14,
-    shiftEfficiency: "94.2%",
-    handoverHistory: [
-      {
-        id: "ho-1",
-        time: "06:00 AM",
-        from: "OP-602 (A. Kumar)",
-        to: "OP-904 (J. Sharma)",
-        notes: "Shift A handover: Kurt vise parallels inspected, tool T02 pocket checked. Ready for OP-10."
-      }
-    ]
-  },
+  operator: DEMO_OPERATORS[0],
+  handoverHistory: [
+    {
+      id: "ho-1",
+      time: "06:00 AM",
+      from: "OP-602 (A. Kumar)",
+      to: "OP-904 (J. Sharma)",
+      notes: "Shift A handover: Kurt vise parallels inspected, tool T02 pocket checked. Ready for OP-10."
+    }
+  ],
 
   // Initialization
   fetchInitialData: async () => {
@@ -56,6 +78,42 @@ export const useHmiStore = create((set, get) => ({
         loading: false 
       });
     }
+  },
+
+  // Auth actions
+  login: (badgeId, pin) => {
+    const found = DEMO_OPERATORS.find(op => op.id === badgeId);
+    if (!found || (pin && pin !== found.pin)) {
+      soundFx.playStopAlarm();
+      return { success: false, message: "Invalid Operator Badge ID or PIN (Use PIN: 1234)" };
+    }
+    soundFx.playStartCycle();
+    set({ operator: found, isLoggedIn: true, errorMessage: null });
+
+    // Log login to audit
+    if (get().machineState) {
+      const auditEntry = {
+        id: `log-auth-${Date.now()}`,
+        timestamp: new Date().toISOString(),
+        type: "OPERATOR_LOGIN",
+        action: `Operator Logged In: ${found.name} (${found.id})`,
+        details: `Access granted for ${found.shiftName}`,
+        operator: found.id
+      };
+      set({
+        machineState: {
+          ...get().machineState,
+          auditLogs: [auditEntry, ...get().machineState.auditLogs]
+        }
+      });
+    }
+
+    return { success: true };
+  },
+
+  logout: () => {
+    soundFx.playClick();
+    set({ isLoggedIn: false, showProfileModal: false });
   },
 
   // Modal actions
@@ -84,19 +142,20 @@ export const useHmiStore = create((set, get) => ({
       notes: handoverData.notes || "Shift handover completed successfully."
     };
 
-    const updatedOperator = {
-      ...get().operator,
-      name: handoverData.nextOperatorName || "R. Patel",
+    const targetOp = DEMO_OPERATORS.find(o => o.id === handoverData.nextOperatorId) || {
       id: handoverData.nextOperatorId || "OP-712",
-      shiftName: handoverData.nextShiftName || "Shift B (Afternoon)",
-      shiftStart: "14:00",
-      shiftEnd: "22:00",
+      name: handoverData.nextOperatorName || "R. Patel",
+      pin: "1234",
+      role: "Relieving Machinist",
+      qualification: "Level 3 CNC Specialist",
+      shiftName: handoverData.nextShiftName || "Shift B (Afternoon 14:00 - 22:00)",
       shiftHoursElapsed: "00h 05m",
-      handoverHistory: [newHandoverEntry, ...get().operator.handoverHistory]
+      shiftEfficiency: "93.0%"
     };
 
     set({ 
-      operator: updatedOperator,
+      operator: targetOp,
+      handoverHistory: [newHandoverEntry, ...get().handoverHistory],
       showProfileModal: false 
     });
 
@@ -108,7 +167,7 @@ export const useHmiStore = create((set, get) => ({
         type: "SHIFT_HANDOVER",
         action: `Shift Handover: ${newHandoverEntry.from} ➔ ${newHandoverEntry.to}`,
         details: newHandoverEntry.notes,
-        operator: updatedOperator.id
+        operator: targetOp.id
       };
       set({
         machineState: {

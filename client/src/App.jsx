@@ -11,6 +11,7 @@ import { OperationView } from './components/OperationView';
 import { ScenarioInfoModal } from './components/ScenarioInfoModal';
 import { AuditLogModal } from './components/AuditLogModal';
 import { OperatorProfileModal } from './components/OperatorProfileModal';
+import { OperatorLoginScreen } from './components/OperatorLoginScreen';
 
 export function App() {
   const {
@@ -20,6 +21,7 @@ export function App() {
     showSpecsModal,
     showAuditModal,
     showProfileModal,
+    isLoggedIn,
     fetchInitialData,
     setErrorMessage,
     setShowSpecsModal,
@@ -39,6 +41,11 @@ export function App() {
         <p className="text-slate-500 text-sm mt-1">Establishing link with CNC controller and telemetry sensors...</p>
       </div>
     );
+  }
+
+  // If not logged in, render the Operator Power-On Login Lock Screen
+  if (!isLoggedIn) {
+    return <OperatorLoginScreen />;
   }
 
   const currentStage = machineState?.currentStageIndex || 1;

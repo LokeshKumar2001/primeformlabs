@@ -15,7 +15,7 @@ import { useHmiStore } from '../store/useHmiStore';
 import { soundFx } from '../audio/soundEffects';
 
 export function OperatorProfileModal({ isOpen, onClose }) {
-  const { operator, submitShiftHandover } = useHmiStore();
+  const { operator, submitShiftHandover, logout } = useHmiStore();
   
   const [nextOperatorName, setNextOperatorName] = useState("R. Patel");
   const [nextOperatorId, setNextOperatorId] = useState("OP-712");
@@ -529,8 +529,22 @@ export function OperatorProfileModal({ isOpen, onClose }) {
           backgroundColor: '#ffffff',
           borderTop: '1px solid #e2e8f0',
           display: 'flex',
-          justifyContent: 'flex-end'
+          justifyContent: 'space-between',
+          alignItems: 'center'
         }}>
+          <button 
+            type="button"
+            className="hmi-btn hmi-btn-danger"
+            style={{ padding: '8px 16px', borderRadius: '10px', fontWeight: 700, fontSize: '12px' }}
+            onClick={() => {
+              if (window.confirm("Confirm Logout: Return to Operator Login Screen?")) {
+                logout();
+              }
+            }}
+          >
+            Log Out / Lock HMI
+          </button>
+
           <button 
             type="button"
             className="hmi-btn hmi-btn-secondary"
