@@ -180,14 +180,14 @@ export function HeaderBar() {
             fontSize: '11px',
             fontWeight: 900
           }}>
-            {operator.name.split(' ').map(n => n[0]).join('')}
+            {(operator?.name || 'JS').split(' ').map(n => n[0]).join('')}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', textAlign: 'left' }}>
             <span style={{ fontSize: '11px', fontWeight: 800, color: '#0f172a', lineHeight: 1 }}>
-              {operator.name}
+              {operator?.name || 'Operator'}
             </span>
             <span style={{ fontSize: '9px', color: '#00646e', fontWeight: 700, marginTop: '2px', lineHeight: 1 }}>
-              {operator.shiftName.split(' ')[0]} ({operator.shiftHoursElapsed})
+              {(operator?.shiftName || 'Shift A').split(' ')[0]} ({operator?.shiftHoursElapsed || '00h 00m'})
             </span>
           </div>
           <ArrowRightLeft size={13} color="#00646e" style={{ marginLeft: '2px' }} />

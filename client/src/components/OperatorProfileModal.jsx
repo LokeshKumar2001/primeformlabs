@@ -15,7 +15,7 @@ import { useHmiStore } from '../store/useHmiStore';
 import { soundFx } from '../audio/soundEffects';
 
 export function OperatorProfileModal({ isOpen, onClose }) {
-  const { operator, submitShiftHandover, logout } = useHmiStore();
+  const { operator, handoverHistory, submitShiftHandover, logout } = useHmiStore();
   
   const [nextOperatorName, setNextOperatorName] = useState("R. Patel");
   const [nextOperatorId, setNextOperatorId] = useState("OP-712");
@@ -159,13 +159,13 @@ export function OperatorProfileModal({ isOpen, onClose }) {
                 border: '2px solid #00a2ac',
                 boxShadow: '0 2px 8px rgba(0, 100, 110, 0.3)'
               }}>
-                {operator.name.split(' ').map(n => n[0]).join('')}
+                {(operator?.name || 'JS').split(' ').map(n => n[0]).join('')}
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#0f172a', margin: 0 }}>
-                    {operator.name}
+                    {operator?.name || 'Operator'}
                   </h3>
                   <span style={{
                     fontFamily: 'monospace',
@@ -493,7 +493,7 @@ export function OperatorProfileModal({ isOpen, onClose }) {
               <span>Shift Handover Log History</span>
             </h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              {operator.handoverHistory.map((h) => (
+              {(handoverHistory || operator?.handoverHistory || []).map((h) => (
                 <div 
                   key={h.id}
                   style={{
